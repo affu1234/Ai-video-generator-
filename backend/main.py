@@ -18,10 +18,10 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
 
 stats_counter = {
-    "total_generations": 150,
-    "images_generated": 125,
-    "voices_generated": 100,
-    "prompts_enhanced": 70
+    "total_generations": 184,
+    "images_generated": 142,
+    "voices_generated": 110,
+    "prompts_enhanced": 89
 }
 
 BG_MUSIC_TRACKS = {
@@ -47,10 +47,9 @@ def get_stats():
 @app.get("/enhance-prompt")
 def enhance_prompt(prompt: str = ""):
     if not prompt or prompt.strip() == "":
-        return {"enhanced_prompt": "Cinematic high detail studio scene"}
+        return {"enhanced_prompt": "A ultra realistic cinematic HD studio scene"}
     
-    enhanced = f"A realistic cinematic detailed shot of {prompt}, 8k resolution, photorealistic, dramatic lighting, sharp focus"
-    
+    enhanced = f"A ultra detailed 8K cinematic shot of {prompt}, dramatic lighting, photorealistic, octane render, vivid colors"
     if client:
         try:
             ai_prompt = f"Expand this into an ultra-detailed 8K video prompt in 1 line: '{prompt}'."
@@ -60,7 +59,7 @@ def enhance_prompt(prompt: str = ""):
             )
             if res and res.text:
                 enhanced = res.text.strip().replace('\n', ' ')
-        except Exception as e:
+        except Exception:
             pass
             
     stats_counter["prompts_enhanced"] += 1
@@ -84,28 +83,24 @@ async def generate_script(
     if is_img: stats_counter["images_generated"] += 1
     if is_voc: stats_counter["voices_generated"] += 1
 
-    # Image Size Handling
+    # Ratio Handling
     w, h = 1280, 720
     if aspect_ratio == "9:16":
         w, h = 720, 1280
     elif aspect_ratio == "1:1":
         w, h = 800, 800
 
-    clean_prompt = urllib.parse.quote(prompt.strip() if prompt else "cinematic wallpaper")
+    clean_prompt = urllib.parse.quote(prompt.strip() if prompt else "cinematic car scene")
     
-    # Visual Image Engine
-    image_url = None
-    fallback_image = f"https://picsum.photos/{w}/{h}?random=1"
-    
-    if is_img:
-        # Reliable Pollinations Direct Engine URL
-        image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&nologo=true"
+    # 100% Reliable Image Engine URL
+    image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&nologo=true&seed=101"
+    fallback_image = f"https://picsum.photos/{w}/{h}?random=2"
 
-    # Script Logic
-    script_text = f"Welcome to the visual world of {prompt if prompt else 'AI Studio'}. Experience the future of content creation."
+    # Script Generation
+    script_text = f"Welcome to the high speed world of {prompt if prompt else 'AI generation'}. Experience precision and speed like never before."
     if client and prompt:
         try:
-            ai_prompt = f"Write a catchy 2-sentence narration script about: '{prompt}'."
+            ai_prompt = f"Write a energetic 2-sentence narration script for: '{prompt}'."
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=ai_prompt,
@@ -122,7 +117,7 @@ async def generate_script(
         encoded_script = urllib.parse.quote(script_text[:150])
         voice_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={encoded_script}&tl={lang}&client=tw-ob"
 
-    # Music Engine
+    # Background Music
     bg_music = None
     if is_mus:
         p_lower = prompt.lower()
