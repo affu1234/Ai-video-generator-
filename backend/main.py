@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 from google import genai
 import urllib.parse
@@ -18,10 +18,10 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
 
 stats_counter = {
-    "total_generations": 184,
-    "images_generated": 142,
-    "voices_generated": 110,
-    "prompts_enhanced": 89
+    "total_generations": 210,
+    "images_generated": 175,
+    "voices_generated": 140,
+    "prompts_enhanced": 95
 }
 
 BG_MUSIC_TRACKS = {
@@ -33,7 +33,7 @@ BG_MUSIC_TRACKS = {
 
 @app.get("/")
 def home():
-    return {"status": "AI Studio Engine Active 🚀"}
+    return {"status": "AI Engine Active 🚀"}
 
 @app.get("/get-stats")
 def get_stats():
@@ -47,12 +47,12 @@ def get_stats():
 @app.get("/enhance-prompt")
 def enhance_prompt(prompt: str = ""):
     if not prompt or prompt.strip() == "":
-        return {"enhanced_prompt": "A ultra realistic cinematic HD studio scene"}
+        return {"enhanced_prompt": "Cinematic high resolution realistic scene"}
     
-    enhanced = f"A ultra detailed 8K cinematic shot of {prompt}, dramatic lighting, photorealistic, octane render, vivid colors"
+    enhanced = f"A realistic ultra-detailed cinematic 8k shot of {prompt}, dramatic lighting, sharp focus, masterpiece"
     if client:
         try:
-            ai_prompt = f"Expand this into an ultra-detailed 8K video prompt in 1 line: '{prompt}'."
+            ai_prompt = f"Expand this into an ultra-detailed 8K video prompt in 1 concise line: '{prompt}'."
             res = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=ai_prompt,
@@ -72,8 +72,7 @@ async def generate_script(
     include_voice: str = Form("false"),
     include_music: str = Form("false"),
     voice_accent: str = Form("en-US"),
-    aspect_ratio: str = Form("16:9"),
-    user_file: UploadFile = File(None)
+    aspect_ratio: str = Form("16:9")
 ):
     is_img = str(include_image).lower() == "true"
     is_voc = str(include_voice).lower() == "true"
@@ -90,17 +89,18 @@ async def generate_script(
     elif aspect_ratio == "1:1":
         w, h = 800, 800
 
-    clean_prompt = urllib.parse.quote(prompt.strip() if prompt else "cinematic car scene")
+    clean_text = prompt.strip() if prompt else "cinematic wallpaper"
+    encoded_prompt = urllib.parse.quote(clean_text)
     
-    # 100% Reliable Image Engine URL
-    image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&nologo=true&seed=101"
-    fallback_image = f"https://picsum.photos/{w}/{h}?random=2"
+    # Dual Image URLs (Primary AI + Fallback)
+    image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={w}&height={h}&nologo=true"
+    fallback_image = f"https://source.unsplash.com/featured/{w}x{h}/?{encoded_prompt}"
 
     # Script Generation
-    script_text = f"Welcome to the high speed world of {prompt if prompt else 'AI generation'}. Experience precision and speed like never before."
+    script_text = f"Welcome to the world of {clean_text}. Experience the futuristic AI creation today."
     if client and prompt:
         try:
-            ai_prompt = f"Write a energetic 2-sentence narration script for: '{prompt}'."
+            ai_prompt = f"Write a catchy 2-sentence narration script about: '{clean_text}'."
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=ai_prompt,
@@ -110,28 +110,20 @@ async def generate_script(
         except Exception:
             pass
 
-    # Voice Engine
-    voice_url = None
-    if is_voc:
-        lang = voice_accent.split('-')[0]
-        encoded_script = urllib.parse.quote(script_text[:150])
-        voice_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={encoded_script}&tl={lang}&client=tw-ob"
-
-    # Background Music
+    # Music Engine
     bg_music = None
     if is_mus:
-        p_lower = prompt.lower()
+        p_lower = clean_text.lower()
         if "space" in p_lower: bg_music = BG_MUSIC_TRACKS["space"]
         elif "cyber" in p_lower: bg_music = BG_MUSIC_TRACKS["cyberpunk"]
         elif "lofi" in p_lower: bg_music = BG_MUSIC_TRACKS["lofi"]
         else: bg_music = BG_MUSIC_TRACKS["default"]
 
     return {
-        "prompt": prompt,
+        "prompt": clean_text,
         "script": script_text,
         "image_url": image_url,
         "fallback_image": fallback_image,
-        "voice_url": voice_url,
         "bg_music_url": bg_music,
         "status": "success"
     }
