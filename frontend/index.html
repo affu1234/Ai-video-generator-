@@ -3,194 +3,282 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Video Creator & Studio Pro</title>
+  <title>AI Studio Pro & Creator Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-between p-4 font-sans selection:bg-purple-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 font-sans">
 
-  <header class="w-full max-w-md py-4 flex items-center justify-between border-b border-slate-800/80 mb-4">
+  <header class="w-full max-w-2xl flex items-center justify-between pb-4 border-b border-slate-800">
     <div class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center font-bold text-sm shadow-lg shadow-purple-900/50">
-        AI
+      <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-400 flex items-center justify-center text-white font-black shadow-lg">
+        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
       </div>
-      <span class="font-bold text-slate-200 tracking-wide">Studio<span class="text-purple-400">.ai</span></span>
+      <span class="font-bold text-lg text-slate-100 tracking-wide">Studio<span class="text-purple-400">AI</span></span>
     </div>
-    <span class="text-[10px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
-      v3.0 Pro
-    </span>
+    
+    <div class="flex items-center gap-2">
+      <button onclick="fetchStats()" class="text-xs bg-slate-900 border border-slate-800 hover:border-purple-500/50 text-slate-300 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 font-medium">
+        <i class="fa-solid fa-chart-line text-purple-400"></i> Stats 📊
+      </button>
+      <span class="text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30 px-3 py-1.5 rounded-full uppercase tracking-widest">
+        PRO v4.0
+      </span>
+    </div>
   </header>
 
-  <div class="max-w-md w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-xl my-auto">
+  <main class="w-full max-w-2xl bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-2xl my-auto mt-4">
     
     <div class="text-center mb-5">
-      <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-        AI Video Creator 🚀
+      <h1 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
+        AI Video Creator Studio 🎬
       </h1>
-      <p class="text-slate-400 text-xs mt-1">Prompt daalo, options chunno aur instant media generate karo!</p>
+      <p class="text-slate-400 text-xs mt-1">Professional Multi-Scene Video, Magic Prompts & HD Visual Generator!</p>
     </div>
 
-    <div class="mb-4">
-      <p class="text-[11px] font-semibold text-slate-500 mb-2 uppercase tracking-wider">Quick Suggestions:</p>
-      <div class="flex flex-wrap gap-1.5">
-        <button onclick="setPrompt('Space exploration with glowing nebula and futuristic spaceship')" class="text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">🚀 Space</button>
-        <button onclick="setPrompt('Cyberpunk city streets rainy night with neon lights')" class="text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">🏙️ Cyberpunk</button>
-        <button onclick="setPrompt('Deep forest with magical glowing creatures and waterfall')" class="text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">🌲 Fantasy</button>
+    <div id="statsModal" class="hidden mb-4 bg-slate-950 p-4 rounded-2xl border border-purple-500/30 relative">
+      <button onclick="document.getElementById('statsModal').classList.add('hidden')" class="absolute top-2 right-3 text-slate-500 hover:text-white text-xs">✕</button>
+      <p class="text-xs font-bold text-purple-400 mb-2 uppercase tracking-wider"><i class="fa-solid fa-chart-pie"></i> Platform Usage Statistics</p>
+      <div class="grid grid-cols-4 gap-2 text-center text-xs">
+        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
+          <p id="statTotal" class="text-base font-bold text-amber-400">0</p>
+          <span class="text-[9px] text-slate-500">Generations</span>
+        </div>
+        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
+          <p id="statImages" class="text-base font-bold text-purple-400">0</p>
+          <span class="text-[9px] text-slate-500">HD Visuals</span>
+        </div>
+        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
+          <p id="statVoices" class="text-base font-bold text-pink-400">0</p>
+          <span class="text-[9px] text-slate-500">Voiceovers</span>
+        </div>
+        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
+          <p id="statPrompts" class="text-base font-bold text-emerald-400">0</p>
+          <span class="text-[9px] text-slate-500">Magic Prompts</span>
+        </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-2 mb-4">
-      <div>
-        <label class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">Video Ratio</label>
-        <select id="aspectRatio" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-purple-500">
-          <option value="16:9">16:9 (YouTube Video)</option>
-          <option value="9:16">9:16 (Reels / Shorts)</option>
-          <option value="1:1">1:1 (Square Post)</option>
-        </select>
+    <div class="mb-4 bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
+      <p class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-wider">Features Selection:</p>
+      <div class="grid grid-cols-3 gap-2 text-xs mb-3">
+        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
+          <input type="checkbox" id="chkImage" checked class="accent-purple-500">
+          <span>🖼️ Visual</span>
+        </label>
+        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
+          <input type="checkbox" id="chkVoice" class="accent-purple-500">
+          <span>🎙️ Voice</span>
+        </label>
+        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
+          <input type="checkbox" id="chkMusic" class="accent-purple-500">
+          <span>🎵 Music</span>
+        </label>
       </div>
-      <div>
-        <label class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">Voice Accent</label>
-        <select id="voiceAccent" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-purple-500">
-          <option value="en-US">English (US Accent)</option>
-          <option value="en-UK">English (UK Accent)</option>
-          <option value="hi-IN">Hindi Accent</option>
-        </select>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Aspect Ratio</label>
+          <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none">
+            <option value="16:9">16:9 (YouTube / Landscape)</option>
+            <option value="9:16">9:16 (Reels / Shorts / TikTok)</option>
+            <option value="1:1">1:1 (Square Post)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Voice Accent</label>
+          <select id="voiceAccent" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none">
+            <option value="en-US">English (US Accent)</option>
+            <option value="hi-IN">Hindi Accent</option>
+            <option value="en-UK">English (UK Accent)</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <textarea id="promptInput" rows="3" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/80 focus:border-transparent mb-4 placeholder-slate-600 transition resize-none" placeholder="Apna video prompt yahan likhein..."></textarea>
+    <div class="space-y-3 mb-5">
+      <div class="relative">
+        <textarea id="promptInput" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3.5 pr-24 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/80 transition resize-none placeholder-slate-600" placeholder="Enter prompt or scene idea..."></textarea>
+        
+        <button onclick="enhancePrompt()" class="absolute right-2.5 top-2.5 bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/40 text-purple-300 text-[10px] font-bold px-2.5 py-1.5 rounded-xl transition flex items-center gap-1">
+          <i class="fa-solid fa-wand-magic"></i> Magic 🪄
+        </button>
+      </div>
 
-    <button id="genBtn" onclick="generateVideo()" class="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 font-bold py-3.5 rounded-2xl transition shadow-xl shadow-purple-900/30 text-sm flex items-center justify-center gap-2">
-      <span>Generate Scene & Audio</span> ✨
-    </button>
+      <div class="relative bg-slate-950 border border-dashed border-slate-800 hover:border-purple-500/60 rounded-2xl p-3 text-center transition">
+        <input type="file" id="fileInput" accept="image/*,video/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="showFileName(this)">
+        <div class="flex items-center justify-center gap-2 text-slate-400 text-xs">
+          <i class="fa-solid fa-paperclip text-purple-400"></i>
+          <span id="fileNameDisplay">Attach Reference Image / Video (Optional)</span>
+        </div>
+      </div>
 
-    <div id="resultBox" class="mt-6 hidden text-left bg-slate-950/90 p-4 border border-slate-800 rounded-2xl transition-all">
+      <button id="genBtn" onclick="generateVideo()" class="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 font-extrabold py-3.5 rounded-2xl transition shadow-xl text-xs sm:text-sm flex items-center justify-center gap-2">
+        <i class="fa-solid fa-bolt"></i> Generate Studio Media
+      </button>
+    </div>
+
+    <div id="loadingState" class="hidden py-8 text-center bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-4">
+      <div class="inline-block w-8 h-8 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mb-2"></div>
+      <p class="text-xs text-purple-300 font-semibold animate-pulse">Synthesizing Media, Storyboard & Script... ⏳</p>
+    </div>
+
+    <div id="resultBox" class="hidden space-y-4">
       
-      <div id="loadingState" class="py-8 text-center hidden">
-        <div class="inline-block w-8 h-8 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mb-3"></div>
-        <p class="text-xs text-slate-400 font-medium animate-pulse">AI Visuals, Script & Custom Audio generate ho raha hai... ⏳</p>
+      <div id="visualFrame" class="hidden relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl">
+        <img id="videoVisual" class="w-full h-full object-cover" alt="Visual Frame" />
       </div>
 
-      <div id="contentArea">
-        <div id="imageContainer" class="mb-4 hidden">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">AI Visual Frame</span>
-            <button onclick="downloadImage()" class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-md hover:bg-purple-500/40 transition">
-              Download Image 📥
-            </button>
-          </div>
-          <img id="generatedImg" class="w-full h-auto rounded-xl border border-slate-800 shadow-md mb-3 transition duration-300" alt="AI Scene" />
-        </div>
+      <div id="voiceBox" class="hidden bg-slate-950 p-3 rounded-2xl border border-slate-800">
+        <p class="text-[11px] font-semibold text-purple-400 mb-1">🎙️ AI Voiceover Audio</p>
+        <audio id="voiceAudio" controls class="w-full h-8 rounded-lg"></audio>
+      </div>
 
-        <div id="voiceContainer" class="mb-3 hidden bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-          <span class="text-[11px] font-semibold text-purple-400 block mb-1.5">🎙️ Custom Voiceover Audio</span>
-          <audio id="voicePlayer" controls class="w-full h-8 rounded-lg"></audio>
-        </div>
+      <div id="musicBox" class="hidden bg-slate-950 p-3 rounded-2xl border border-slate-800">
+        <p class="text-[11px] font-semibold text-pink-400 mb-1">🎵 Ambient Track</p>
+        <audio id="bgMusicAudio" controls loop class="w-full h-8 rounded-lg"></audio>
+      </div>
 
-        <div id="bgMusicContainer" class="mb-4 hidden bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-          <span class="text-[11px] font-semibold text-pink-400 block mb-1.5">🎵 Ambient Sound Track</span>
-          <audio id="bgMusicPlayer" controls loop class="w-full h-8 rounded-lg"></audio>
+      <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">AI Storyboard & Script</span>
+          <button onclick="copyScriptText()" class="text-[10px] text-purple-400 font-semibold bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">Copy 📋</button>
         </div>
-
-        <div class="mt-3">
-          <div class="flex items-center justify-between mb-1">
-            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Script Content</span>
-            <button onclick="copyScript()" class="text-[10px] text-purple-400 hover:text-purple-300 font-semibold bg-purple-500/10 px-2 py-1 rounded-md border border-purple-500/20 transition">Copy Script 📋</button>
-          </div>
-          <p id="resultText" class="text-slate-300 text-xs font-mono whitespace-pre-wrap leading-relaxed bg-slate-900/50 p-3 rounded-xl border border-slate-800/80 mt-1"></p>
-        </div>
+        <p id="scriptOutput" class="text-xs font-mono text-slate-300 leading-relaxed"></p>
       </div>
 
     </div>
-  </div>
 
-  <footer class="mt-8 text-center text-xs text-slate-500 pb-4 flex items-center justify-center gap-1.5">
-    <span>Developed by</span>
-    <a href="https://www.instagram.com/digitalaffan.1?igsh=MWwzNWZoamYxdGVkdw==" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:text-pink-400 font-semibold inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-800 transition-all hover:border-purple-500/50">
-      <svg class="w-3.5 h-3.5 fill-current text-pink-500" viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
+  </main>
+
+  <footer class="mt-6 text-center text-xs text-slate-500 pb-2">
+    <span>Crafted by </span>
+    <a href="https://www.instagram.com/digitalaffan.1?igsh=MWwzNWZoamYxdGVkdw==" target="_blank" class="text-purple-400 hover:text-pink-400 font-bold underline">
       @digitalaffan.1
     </a>
   </footer>
 
   <script>
-    function setPrompt(text) {
-      document.getElementById('promptInput').value = text;
-    }
+    let currentScript = "";
 
-    function copyScript() {
-      const text = document.getElementById('resultText').innerText;
-      if (text) {
-        navigator.clipboard.writeText(text);
-        alert('Script copied to clipboard! 📋');
+    function showFileName(input) {
+      const display = document.getElementById('fileNameDisplay');
+      if (input.files && input.files[0]) {
+        display.innerText = "📎 " + input.files[0].name;
+      } else {
+        display.innerText = "Attach Reference Image / Video (Optional)";
       }
     }
 
-    function downloadImage() {
-      const imgUrl = document.getElementById('generatedImg').src;
-      if (imgUrl) {
-        window.open(imgUrl, '_blank');
+    function copyScriptText() {
+      if (currentScript) {
+        navigator.clipboard.writeText(currentScript);
+        alert('Script copied! 📋');
+      }
+    }
+
+    async function fetchStats() {
+      const modal = document.getElementById('statsModal');
+      modal.classList.remove('hidden');
+      try {
+        const res = await fetch('https://ai-video-generator-aian.onrender.com/get-stats');
+        const data = await res.json();
+        document.getElementById('statTotal').innerText = data.total_generations;
+        document.getElementById('statImages').innerText = data.images_generated;
+        document.getElementById('statVoices').innerText = data.voices_generated;
+        document.getElementById('statPrompts').innerText = data.prompts_enhanced;
+      } catch(e) {}
+    }
+
+    async function enhancePrompt() {
+      const promptInput = document.getElementById('promptInput');
+      const val = promptInput.value.trim();
+      if (!val) return alert('Pehle basic prompt likho!');
+
+      promptInput.value = "Magic Prompt Processing... ✨";
+      try {
+        const res = await fetch(`https://ai-video-generator-aian.onrender.com/enhance-prompt?prompt=${encodeURIComponent(val)}`);
+        const data = await res.json();
+        promptInput.value = data.enhanced_prompt;
+      } catch(e) {
+        promptInput.value = val;
       }
     }
 
     async function generateVideo() {
-      const prompt = document.getElementById('promptInput').value;
-      if (!prompt) return alert('Pehle text prompt toh likho!');
+      const prompt = document.getElementById('promptInput').value.trim();
+      const fileInput = document.getElementById('fileInput');
 
+      if (!prompt && (!fileInput.files || fileInput.files.length === 0)) {
+        return alert('Pehle koi prompt likho ya ek file attach karo!');
+      }
+
+      const chkImage = document.getElementById('chkImage').checked;
+      const chkVoice = document.getElementById('chkVoice').checked;
+      const chkMusic = document.getElementById('chkMusic').checked;
       const aspectRatio = document.getElementById('aspectRatio').value;
       const voiceAccent = document.getElementById('voiceAccent').value;
 
-      const resultBox = document.getElementById('resultBox');
       const loadingState = document.getElementById('loadingState');
-      const contentArea = document.getElementById('contentArea');
-      
-      const resultText = document.getElementById('resultText');
-      const imageContainer = document.getElementById('imageContainer');
-      const generatedImg = document.getElementById('generatedImg');
-      
-      const voiceContainer = document.getElementById('voiceContainer');
-      const voicePlayer = document.getElementById('voicePlayer');
-      const bgMusicContainer = document.getElementById('bgMusicContainer');
-      const bgMusicPlayer = document.getElementById('bgMusicPlayer');
+      const resultBox = document.getElementById('resultBox');
+      const visualFrame = document.getElementById('visualFrame');
+      const voiceBox = document.getElementById('voiceBox');
+      const musicBox = document.getElementById('musicBox');
 
-      resultBox.classList.remove('hidden');
       loadingState.classList.remove('hidden');
-      contentArea.classList.add('hidden');
+      resultBox.classList.add('hidden');
+
+      const formData = new FormData();
+      formData.append('prompt', prompt);
+      formData.append('include_image', chkImage);
+      formData.append('include_voice', chkVoice);
+      formData.append('include_music', chkMusic);
+      formData.append('aspect_ratio', aspectRatio);
+      formData.append('voice_accent', voiceAccent);
+
+      if (fileInput.files && fileInput.files[0]) {
+        formData.append('user_file', fileInput.files[0]);
+      }
 
       try {
-        const response = await fetch(`https://ai-video-generator-aian.onrender.com/generate-script?prompt=${encodeURIComponent(prompt)}`);
-        const data = await response.json();
-        
+        const res = await fetch('https://ai-video-generator-aian.onrender.com/generate-script', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        currentScript = data.script || "";
+        document.getElementById('scriptOutput').innerText = currentScript;
+
+        if (chkImage && data.image_url) {
+          const videoVisual = document.getElementById('videoVisual');
+          videoVisual.src = data.image_url;
+          videoVisual.onerror = function() { this.src = data.fallback_image; };
+          visualFrame.classList.remove('hidden');
+        } else {
+          visualFrame.classList.add('hidden');
+        }
+
+        if (chkVoice && data.voice_url) {
+          document.getElementById('voiceAudio').src = data.voice_url;
+          voiceBox.classList.remove('hidden');
+        } else {
+          voiceBox.classList.add('hidden');
+        }
+
+        if (chkMusic && data.bg_music_url) {
+          document.getElementById('bgMusicAudio').src = data.bg_music_url;
+          musicBox.classList.remove('hidden');
+        } else {
+          musicBox.classList.add('hidden');
+        }
+
         loadingState.classList.add('hidden');
-        contentArea.classList.remove('hidden');
+        resultBox.classList.remove('hidden');
 
-        if (data.image_url) {
-          let imgUrl = data.image_url;
-          if (aspectRatio === "9:16") {
-            imgUrl = imgUrl.replace("width=1024&height=576", "width=576&height=1024");
-          } else if (aspectRatio === "1:1") {
-            imgUrl = imgUrl.replace("width=1024&height=576", "width=800&height=800");
-          }
-          generatedImg.src = imgUrl;
-          imageContainer.classList.remove('hidden');
-        }
-
-        if (data.voice_url) {
-          let voiceUrl = data.voice_url.replace("tl=en", `tl=${voiceAccent.split('-')[0]}`);
-          voicePlayer.src = voiceUrl;
-          voiceContainer.classList.remove('hidden');
-        }
-
-        if (data.bg_music_url) {
-          bgMusicPlayer.src = data.bg_music_url;
-          bgMusicContainer.classList.remove('hidden');
-        }
-
-        resultText.innerText = data.script || JSON.stringify(data, null, 2);
-      } catch (error) {
+      } catch (err) {
+        alert('Error connecting to Backend Server!');
         loadingState.classList.add('hidden');
-        contentArea.classList.remove('hidden');
-        resultText.innerText = 'Error connecting to AI Backend!';
       }
     }
   </script>
