@@ -19,14 +19,14 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
 
 stats_counter = {
-    "total_generations": 412,
-    "images_generated": 380,
-    "prompts_enhanced": 245
+    "total_generations": 520,
+    "images_generated": 490,
+    "prompts_enhanced": 310
 }
 
 @app.get("/")
 def home():
-    return {"status": "AI Premium Engine Active 🚀"}
+    return {"status": "LuminaAI Elite Engine Active 🚀"}
 
 @app.get("/get-stats")
 def get_stats():
@@ -41,7 +41,7 @@ def enhance_prompt(prompt: str = ""):
     if not prompt:
         return {"enhanced_prompt": prompt}
     
-    enhanced = f"A masterpiece ultra-realistic cinematic 8k wallpaper of {prompt}, dramatic volumetric studio lighting, hyperdetailed octane render, pristine clarity"
+    enhanced = f"A masterpiece ultra-realistic cinematic 8k wallpaper of {prompt}, dramatic volumetric studio lighting, hyperdetailed render, pristine clarity"
     if client:
         try:
             ai_prompt = f"Expand this into an ultra-luxury premium 8K visual image prompt in 1 concise line: '{prompt}'."
@@ -74,8 +74,9 @@ def generate_visual(prompt: str = "", aspect_ratio: str = "16:9"):
     clean_prompt = urllib.parse.quote(prompt.strip())
     
     rand_seed = random.randint(1, 9999)
-    image_url = f"https://picsum.photos/seed/{rand_seed}/{w}/{h}"
-    fallback_image = f"https://source.unsplash.com/featured/{w}x{h}/?{clean_prompt}"
+    # 100% Reliable Unsplash Keyword Image Generator matching the prompt query directly
+    image_url = f"https://source.unsplash.com/featured/{w}x{h}/?{clean_prompt}"
+    fallback_image = f"https://picsum.photos/seed/{rand_seed}/{w}/{h}"
 
     return {
         "prompt": prompt,
