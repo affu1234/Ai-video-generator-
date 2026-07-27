@@ -103,7 +103,7 @@
 
     <div class="space-y-3 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3.5 pr-28 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/60 transition resize-none placeholder-slate-600" placeholder="Enter video prompt idea..."></textarea>
+        <textarea id="promptInput" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3.5 pr-28 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/60 transition resize-none placeholder-slate-600" placeholder="Describe scene (e.g. Car in high speed street)..."></textarea>
         
         <button onclick="enhancePrompt()" class="absolute right-2.5 top-2.5 bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/50 hover:to-pink-600/50 border border-purple-500/40 text-purple-200 text-[10px] font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5">
           <i class="fa-solid fa-wand-magic-sparkles text-xs text-amber-300"></i> Magic
@@ -129,20 +129,20 @@
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
-      <div id="visualFrame" class="hidden relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl">
-        <img id="videoVisual" class="w-full h-full object-cover" alt="AI Scene Visual" />
+      <div id="visualFrame" class="hidden relative w-full aspect-video bg-slate-950 rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl">
+        <img id="videoVisual" class="w-full h-full object-cover min-h-[220px]" alt="AI Visual" />
       </div>
 
       <div id="voiceBox" class="hidden bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
         <p class="text-[11px] font-bold text-purple-400 mb-1.5 flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-play"></i> Custom Voiceover Audio
+          <i class="fa-solid fa-circle-play"></i> Voiceover Audio
         </p>
         <audio id="voiceAudio" controls class="w-full h-8 rounded-lg"></audio>
       </div>
 
       <div id="musicBox" class="hidden bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
         <p class="text-[11px] font-bold text-pink-400 mb-1.5 flex items-center gap-1.5">
-          <i class="fa-solid fa-compact-disc"></i> Ambient Sound Track
+          <i class="fa-solid fa-compact-disc"></i> Soundtrack
         </p>
         <audio id="bgMusicAudio" controls loop class="w-full h-8 rounded-lg"></audio>
       </div>
@@ -150,7 +150,7 @@
       <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-file-lines text-purple-400"></i> Script Content
+            <i class="fa-solid fa-file-lines text-purple-400"></i> AI Narration Script
           </span>
           <button onclick="copyScriptText()" class="text-[10px] text-purple-300 font-bold bg-purple-500/10 hover:bg-purple-500/20 px-2.5 py-1 rounded-lg border border-purple-500/20 transition flex items-center gap-1">
             <i class="fa-regular fa-copy"></i> Copy Script
@@ -227,7 +227,7 @@
       const fileInput = document.getElementById('fileInput');
 
       if (!prompt && (!fileInput.files || fileInput.files.length === 0)) {
-        return alert('Pehle text prompt likhein ya reference file attach karein!');
+        return alert('Pehle text prompt likhein ya file attach karein!');
       }
 
       const chkImage = document.getElementById('chkImage').checked;
@@ -267,10 +267,13 @@
         currentScript = data.script || "";
         document.getElementById('scriptOutput').innerText = currentScript;
 
-        // Image Handling Fix
         if (chkImage && data.image_url) {
           const videoVisual = document.getElementById('videoVisual');
-          videoVisual.src = data.image_url;
+          
+          // Timestamp bypass cache to ensure fresh render
+          const imgUrl = `${data.image_url}&t=${new Date().getTime()}`;
+          
+          videoVisual.src = imgUrl;
           videoVisual.onerror = function() { 
             this.src = data.fallback_image; 
           };
@@ -279,7 +282,6 @@
           visualFrame.classList.add('hidden');
         }
 
-        // Voice Handling
         if (chkVoice && data.voice_url) {
           document.getElementById('voiceAudio').src = data.voice_url;
           voiceBox.classList.remove('hidden');
@@ -287,7 +289,6 @@
           voiceBox.classList.add('hidden');
         }
 
-        // Music Handling
         if (chkMusic && data.bg_music_url) {
           document.getElementById('bgMusicAudio').src = data.bg_music_url;
           musicBox.classList.remove('hidden');
@@ -299,7 +300,7 @@
         resultBox.classList.remove('hidden');
 
       } catch (err) {
-        alert('Backend Engine se contact nahi ho pa raha. Render server wake up ho raha hai, 10-15 sec baad retry karein!');
+        alert('Render server is waking up. Dobara "Generate Studio Media" button press karein!');
         loadingState.classList.add('hidden');
       }
     }
