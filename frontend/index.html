@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta+Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
   </style>
 </head>
 <body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
@@ -24,13 +24,13 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.0</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.1</span>
       </div>
     </div>
     
     <div class="flex items-center gap-2">
       <button onclick="fetchStats()" class="text-xs bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 px-3.5 py-2 rounded-xl transition flex items-center gap-2 font-semibold shadow-inner backdrop-blur-md">
-        <i class="fa-solid fa-chart-pie text-indigo-400"></i> Analytics
+        <i class="fa-solid fa-chart-pie text-indigo-400"></i> Stats
       </button>
       <div class="hidden sm:flex items-center gap-1.5 text-[10px] font-black bg-gradient-to-r from-amber-500/10 to-yellow-500/10 text-amber-300 border border-amber-500/30 px-3 py-2 rounded-full uppercase tracking-wider shadow-sm">
         <i class="fa-solid fa-gem text-[9px]"></i> VIP Active
@@ -42,15 +42,15 @@
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-sparkles"></i> Next-Gen AI Rendering
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Next-Gen AI Rendering
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Turn imagination into cinematic masterpieces with pristine quality</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Turn text prompts into stunning high-definition images</p>
     </div>
 
-    <div id="statsModal" class="hidden mb-5 bg-slate-950/95 p-4 rounded-2xl border border-indigo-500/40 relative shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in duration-200">
+    <div id="statsModal" class="hidden mb-5 bg-slate-950/95 p-4 rounded-2xl border border-indigo-500/40 relative shadow-2xl backdrop-blur-xl">
       <button onclick="document.getElementById('statsModal').classList.add('hidden')" class="absolute top-2.5 right-3 text-slate-400 hover:text-white text-xs p-1">✕</button>
       <p class="text-[11px] font-bold text-indigo-400 mb-3 uppercase tracking-wider flex items-center gap-2">
         <i class="fa-solid fa-chart-line"></i> Global Network Status
@@ -78,13 +78,13 @@
       <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-semibold cursor-pointer">
         <option value="16:9">🖼️ 16:9 Landscape (Desktop / Cinematic)</option>
         <option value="9:16">📱 9:16 Portrait (Instagram Reels / Shorts)</option>
-        <option value="1:1">⬛ 1:1 Square (Instagram Post / Profile)</option>
+        <option value="1:1">⬛ 1:1 Square (Instagram Post)</option>
       </select>
     </div>
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Describe your dream image in detail (e.g. Futuristic cyber samurai standing under neon rain)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Describe your image (e.g. Luxury sports car driving in Tokyo)..."></textarea>
         
         <button onclick="enhancePrompt()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
@@ -130,9 +130,9 @@
       try {
         const res = await fetch(`${BACKEND_URL}/get-stats`);
         const data = await res.json();
-        document.getElementById('statTotal').innerText = data.total ?? 412;
-        document.getElementById('statImages').innerText = data.images ?? 380;
-        document.getElementById('statPrompts').innerText = data.prompts ?? 245;
+        document.getElementById('statTotal').innerText = data.total ?? 520;
+        document.getElementById('statImages').innerText = data.images ?? 490;
+        document.getElementById('statPrompts').innerText = data.prompts ?? 310;
       } catch(e) {}
     }
 
