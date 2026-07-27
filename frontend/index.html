@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LuminaAI - Luxury Visual Studio</title>
+  <title>LuminaAI - Professional Visual Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
@@ -11,73 +11,92 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
   </style>
 </head>
-<body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
 
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-600/10 blur-[140px] rounded-full pointer-events-none"></div>
 
-  <header class="w-full max-w-xl flex items-center justify-between pb-4 border-b border-slate-800/60 relative z-10">
+  <header class="w-full max-w-2xl flex items-center justify-between pb-4 border-b border-slate-800/80 relative z-10">
     <div class="flex items-center gap-3">
-      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 ring-1 ring-white/20">
-        <i class="fa-solid fa-crown text-base text-amber-300 drop-shadow"></i>
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 ring-1 ring-white/20">
+        <i class="fa-solid fa-wand-magic-sparkles text-sm text-amber-300"></i>
       </div>
       <div>
-        <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
+        <span class="font-black text-lg text-white tracking-tight flex items-center gap-1.5">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.7</span>
+        <span class="block text-[8px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">PRO STUDIO SUITE</span>
       </div>
     </div>
     
     <div class="flex items-center gap-2">
-      <div class="flex items-center gap-1.5 text-[10px] font-black bg-gradient-to-r from-amber-500/10 to-yellow-500/10 text-amber-300 border border-amber-500/30 px-3 py-2 rounded-full uppercase tracking-wider shadow-sm">
-        <i class="fa-solid fa-gem text-[9px]"></i> VIP Active
-      </div>
+      <span class="text-[10px] font-bold bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-3 py-1.5 rounded-xl uppercase tracking-wider">
+        <i class="fa-solid fa-crown text-amber-300 mr-1"></i> PRO V5.8
+      </span>
     </div>
   </header>
 
-  <main class="w-full max-w-xl bg-slate-900/60 border border-slate-800/80 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-2xl my-auto mt-4 relative z-10 ring-1 ring-white/5">
+  <main class="w-full max-w-2xl bg-[#111827]/80 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-2xl my-auto mt-4 relative z-10 ring-1 ring-white/5 space-y-5">
     
-    <div class="text-center mb-6">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Pro Studio Engine
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
-        Create Elite Visuals Instantly
+    <div class="text-center space-y-1.5">
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+        AI Visual Creator Studio
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Type any person, place or item to generate matching HD visuals</p>
+      <p class="text-slate-400 text-xs font-medium">
+        Generate custom character, object, and scene variations instantly with exact prompt matching.
+      </p>
     </div>
 
-    <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
-      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1.5">
-        <i class="fa-solid fa-sliders text-indigo-400"></i> Select Dimension Ratio
-      </label>
-      <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-semibold cursor-pointer">
+    <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Features Selection:</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+        <label class="flex items-center gap-2.5 bg-slate-950 border border-indigo-500/40 px-3.5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer text-indigo-200">
+          <input type="checkbox" checked disabled class="accent-indigo-500 w-4 h-4 rounded">
+          <i class="fa-solid fa-image text-indigo-400"></i> Visuals
+        </label>
+        <label class="flex items-center gap-2.5 bg-slate-950 border border-slate-800 px-3.5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer text-slate-300">
+          <input type="checkbox" checked disabled class="accent-indigo-500 w-4 h-4 rounded">
+          <i class="fa-solid fa-microphone text-pink-400"></i> Voice
+        </label>
+        <label class="flex items-center gap-2.5 bg-slate-950 border border-slate-800 px-3.5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer text-slate-300 col-span-2 sm:col-span-1">
+          <input type="checkbox" class="accent-indigo-500 w-4 h-4 rounded">
+          <i class="fa-solid fa-music text-amber-400"></i> Music
+        </label>
+      </div>
+    </div>
+
+    <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Aspect Ratio</label>
+      <select id="aspectRatio" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-semibold cursor-pointer">
         <option value="16:9">🖼️ 16:9 Landscape (Cinematic Desktop)</option>
-        <option value="9:16">📱 9:16 Portrait (Reels / Shorts)</option>
+        <option value="9:16">📱 9:16 Portrait (Instagram Reels / Shorts)</option>
         <option value="1:1">⬛ 1:1 Square (Instagram Post)</option>
       </select>
     </div>
 
-    <div class="space-y-3.5 mb-5">
-      <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Luxury sports car, Salman Khan, Cyberpunk city)..."></textarea>
-        
-        <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
+    <div class="relative bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-2">
+      <div class="flex justify-between items-center">
+        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Prompt Description</label>
+        <button onclick="enhancePromptLocally()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> Magic Enhance
         </button>
       </div>
-
-      <button id="genBtn" onclick="generateVisual()" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 font-extrabold py-4 rounded-2xl transition shadow-xl shadow-indigo-950/50 text-xs sm:text-sm flex items-center justify-center gap-2.5 uppercase tracking-wider ring-1 ring-white/20 active:scale-[0.99]">
-        <i class="fa-solid fa-bolt-lightning text-amber-300 text-sm"></i> Generate Pro Images
-      </button>
+      <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition resize-none placeholder-slate-500 font-normal leading-relaxed shadow-inner" placeholder="Type what you want (e.g. Salman Khan, futuristic sports car, cyberpunk street)..."></textarea>
     </div>
 
-    <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
-      <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Studio Quality Frames... ⏳</p>
+    <button onclick="generateVisual()" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 font-black py-4 rounded-2xl transition shadow-xl shadow-indigo-950/60 text-xs sm:text-sm flex items-center justify-center gap-2.5 uppercase tracking-wider ring-1 ring-white/20 active:scale-[0.99]">
+      <i class="fa-solid fa-bolt-lightning text-amber-300"></i> Generate Studio Media
+    </button>
+
+    <div id="loadingState" class="hidden py-8 text-center bg-slate-950/90 rounded-2xl border border-slate-800 shadow-inner">
+      <div class="inline-block w-8 h-8 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-2"></div>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Studio Visuals... ⏳</p>
     </div>
 
-    <div id="resultBox" class="hidden space-y-4">
+    <div id="resultBox" class="hidden space-y-3 pt-2">
+      <div class="flex justify-between items-center px-1">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Generated Variations</span>
+        <span class="text-[10px] font-semibold text-emerald-400"><i class="fa-solid fa-circle-check"></i> HD Verified</span>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="imageContainer">
         </div>
     </div>
@@ -99,7 +118,7 @@
       const val = promptInput.value.trim();
       if (!val) return alert('Pehle prompt box me kuch likhiye!');
       
-      promptInput.value = `${val}, highly detailed professional studio photography, cinematic lighting, 8k resolution`;
+      promptInput.value = `${val}, highly detailed professional studio photography, cinematic dramatic lighting, 8k resolution`;
     }
 
     function generateVisual() {
@@ -130,8 +149,8 @@
       }
 
       const encodedPrompt = encodeURIComponent(prompt);
-      const seed1 = Math.floor(Math.random() * 80000);
-      const seed2 = seed1 + 567;
+      const seed1 = Math.floor(Math.random() * 90000);
+      const seed2 = seed1 + 789;
 
       const imgUrl1 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed1}`;
       const imgUrl2 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed2}`;
@@ -140,11 +159,11 @@
         imageContainer.innerHTML = `
           <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
             <img src="${imgUrl1}" class="w-full h-auto object-contain rounded-xl" alt="Studio Variation 1" />
-            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#1 Pro</div>
+            <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#1 Pro</div>
           </div>
           <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
             <img src="${imgUrl2}" class="w-full h-auto object-contain rounded-xl" alt="Studio Variation 2" />
-            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#2 Pro</div>
+            <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#2 Pro</div>
           </div>
         `;
 
