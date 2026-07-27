@@ -24,7 +24,7 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.4</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.5</span>
       </div>
     </div>
     
@@ -39,12 +39,12 @@
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Direct AI Prompt Engine
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Precision AI Engine
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Select ratio and generate your exact custom image</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Accurate prompt rendering for exact character and object generation</p>
     </div>
 
     <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
@@ -60,7 +60,7 @@
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Luxury sports car, Cyberpunk city)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type character or object (e.g. Salman Khan, Luxury Sports Car)..."></textarea>
         
         <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
@@ -74,7 +74,7 @@
 
     <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
       <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering in selected aspect ratio... ⏳</p>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Clean High-Definition Visual... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
@@ -103,14 +103,14 @@
       const val = promptInput.value.trim();
       if (!val) return alert('Pehle prompt box me kuch likhiye!');
       
-      promptInput.value = `Cinematic portrait masterpiece of ${val}, hyperdetailed 8k resolution, dramatic studio lighting, photorealistic`;
+      promptInput.value = `Portrait close-up shot of ${val}, professional studio lighting, hyperdetailed 8k resolution, cinematic masterpiece`;
     }
 
     function generateVisual() {
       const promptInput = document.getElementById('promptInput');
       const prompt = promptInput.value.trim();
       const aspectRatioSelect = document.getElementById('aspectRatio');
-      const aspectRatio = aspectRatioSelect.value; // Exact value get karega
+      const aspectRatio = aspectRatioSelect.value;
 
       if (!prompt) {
         return alert('Pehle text prompt likhna zaroori hai!');
@@ -123,7 +123,6 @@
       loadingState.classList.remove('hidden');
       resultBox.classList.add('hidden');
 
-      // Accurate Dimension Mapping based on selection
       let w = 1280, h = 720;
       if (aspectRatio.includes("9:16")) { 
         w = 720; 
@@ -136,9 +135,10 @@
         h = 720;
       }
 
-      // Direct Image URL Generation with custom aspect ratio dimensions
-      const encodedPrompt = encodeURIComponent(prompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*10000)}`;
+      // Using direct precise encoding with explicit enhancement tags for clear subject rendering
+      const precisePrompt = `Close up cinematic portrait of ${prompt}, high quality photography`;
+      const encodedPrompt = encodeURIComponent(precisePrompt);
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&enhance=true`;
 
       setTimeout(() => {
         videoVisual.src = imageUrl;
