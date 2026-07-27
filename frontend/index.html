@@ -24,7 +24,7 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.3</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.4</span>
       </div>
     </div>
     
@@ -44,7 +44,7 @@
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Type any name, character or scene to generate exact image</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Select ratio and generate your exact custom image</p>
     </div>
 
     <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
@@ -60,7 +60,7 @@
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Salman Khan, futuristic sports car, cyberpunk city)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Luxury sports car, Cyberpunk city)..."></textarea>
         
         <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
@@ -74,13 +74,13 @@
 
     <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
       <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Painting your exact image from prompt... ⏳</p>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering in selected aspect ratio... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
-      <div id="visualFrame" class="relative w-full rounded-2xl overflow-hidden border border-indigo-500/30 shadow-2xl bg-black group ring-1 ring-white/10">
-        <img id="videoVisual" class="w-full h-auto object-cover block transition duration-500 group-hover:scale-105" alt="AI Generated Elite Image" />
-        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5 text-[10px] text-indigo-300 font-semibold shadow-lg">
+      <div id="visualFrame" class="relative w-full rounded-2xl overflow-hidden border border-indigo-500/30 shadow-2xl bg-black group ring-1 ring-white/10 flex justify-center items-center">
+        <img id="videoVisual" class="max-w-full h-auto object-contain transition duration-500 group-hover:scale-105" alt="AI Generated Elite Image" />
+        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5 text-[10px] text-indigo-300 font-semibold shadow-lg z-10">
           <i class="fa-solid fa-shield-check text-emerald-400"></i> AI Verified HD
         </div>
       </div>
@@ -109,7 +109,8 @@
     function generateVisual() {
       const promptInput = document.getElementById('promptInput');
       const prompt = promptInput.value.trim();
-      const aspectRatio = document.getElementById('aspectRatio').value;
+      const aspectRatioSelect = document.getElementById('aspectRatio');
+      const aspectRatio = aspectRatioSelect.value; // Exact value get karega
 
       if (!prompt) {
         return alert('Pehle text prompt likhna zaroori hai!');
@@ -122,21 +123,28 @@
       loadingState.classList.remove('hidden');
       resultBox.classList.add('hidden');
 
-      // Dimensions mapping
+      // Accurate Dimension Mapping based on selection
       let w = 1280, h = 720;
-      if (aspectRatio === "9:16") { w = 720; h = 1280; }
-      else if (aspectRatio === "1:1") { w = 800; h = 800; }
+      if (aspectRatio.includes("9:16")) { 
+        w = 720; 
+        h = 1280; 
+      } else if (aspectRatio.includes("1:1")) { 
+        w = 800; 
+        h = 800; 
+      } else {
+        w = 1280;
+        h = 720;
+      }
 
-      // Direct Image URL Generation matching user prompt 100%
+      // Direct Image URL Generation with custom aspect ratio dimensions
       const encodedPrompt = encodeURIComponent(prompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*1000)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*10000)}`;
 
-      // Simulate loading delay for smooth loader animation
       setTimeout(() => {
         videoVisual.src = imageUrl;
         loadingState.classList.add('hidden');
         resultBox.classList.remove('hidden');
-      }, 800);
+      }, 700);
     }
   </script>
 </body>
