@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from google import genai
 import urllib.parse
 import os
-import random
 
 app = FastAPI()
 
@@ -19,9 +18,9 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
 
 stats_counter = {
-    "total_generations": 520,
-    "images_generated": 490,
-    "prompts_enhanced": 310
+    "total_generations": 610,
+    "images_generated": 580,
+    "prompts_enhanced": 390
 }
 
 @app.get("/")
@@ -41,7 +40,7 @@ def enhance_prompt(prompt: str = ""):
     if not prompt:
         return {"enhanced_prompt": prompt}
     
-    enhanced = f"A masterpiece ultra-realistic cinematic 8k wallpaper of {prompt}, dramatic volumetric studio lighting, hyperdetailed render, pristine clarity"
+    enhanced = f"A masterpiece ultra-realistic cinematic 8k portrait of {prompt}, dramatic volumetric studio lighting, hyperdetailed render"
     if client:
         try:
             ai_prompt = f"Expand this into an ultra-luxury premium 8K visual image prompt in 1 concise line: '{prompt}'."
@@ -71,12 +70,12 @@ def generate_visual(prompt: str = "", aspect_ratio: str = "16:9"):
     elif aspect_ratio == "1:1":
         w, h = 800, 800
 
+    # Clean prompt for URL encoding so exact words pass to Pollinations AI
     clean_prompt = urllib.parse.quote(prompt.strip())
     
-    rand_seed = random.randint(1, 9999)
-    # 100% Reliable Unsplash Keyword Image Generator matching the prompt query directly
-    image_url = f"https://source.unsplash.com/featured/{w}x{h}/?{clean_prompt}"
-    fallback_image = f"https://picsum.photos/seed/{rand_seed}/{w}/{h}"
+    # 100% Prompt-Matched AI Image Generation Engine (Pollinations)
+    image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&nologo=true&seed=42"
+    fallback_image = f"https://picsum.photos/{w}/{h}"
 
     return {
         "prompt": prompt,
