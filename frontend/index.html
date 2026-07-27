@@ -24,7 +24,7 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.5</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.6</span>
       </div>
     </div>
     
@@ -39,12 +39,12 @@
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Precision AI Engine
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Direct Multi-Image Engine
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Accurate prompt rendering for exact character and object generation</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Enter any subject, person, or object to generate distinct visuals</p>
     </div>
 
     <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
@@ -60,7 +60,7 @@
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type character or object (e.g. Salman Khan, Luxury Sports Car)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Red sports car on highway, Salman Khan in action movie)..."></textarea>
         
         <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
@@ -68,22 +68,18 @@
       </div>
 
       <button id="genBtn" onclick="generateVisual()" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 font-extrabold py-4 rounded-2xl transition shadow-xl shadow-indigo-950/50 text-xs sm:text-sm flex items-center justify-center gap-2.5 uppercase tracking-wider ring-1 ring-white/20 active:scale-[0.99]">
-        <i class="fa-solid fa-bolt-lightning text-amber-300 text-sm"></i> Generate Premium Image
+        <i class="fa-solid fa-bolt-lightning text-amber-300 text-sm"></i> Generate Premium Images
       </button>
     </div>
 
     <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
       <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Clean High-Definition Visual... ⏳</p>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Multiple Variations... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
-      <div id="visualFrame" class="relative w-full rounded-2xl overflow-hidden border border-indigo-500/30 shadow-2xl bg-black group ring-1 ring-white/10 flex justify-center items-center">
-        <img id="videoVisual" class="max-w-full h-auto object-contain transition duration-500 group-hover:scale-105" alt="AI Generated Elite Image" />
-        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5 text-[10px] text-indigo-300 font-semibold shadow-lg z-10">
-          <i class="fa-solid fa-shield-check text-emerald-400"></i> AI Verified HD
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="imageContainer">
         </div>
-      </div>
     </div>
 
   </main>
@@ -103,7 +99,7 @@
       const val = promptInput.value.trim();
       if (!val) return alert('Pehle prompt box me kuch likhiye!');
       
-      promptInput.value = `Portrait close-up shot of ${val}, professional studio lighting, hyperdetailed 8k resolution, cinematic masterpiece`;
+      promptInput.value = `${val}, high quality realistic render, detailed lighting, sharp focus`;
     }
 
     function generateVisual() {
@@ -118,33 +114,44 @@
 
       const loadingState = document.getElementById('loadingState');
       const resultBox = document.getElementById('resultBox');
-      const videoVisual = document.getElementById('videoVisual');
+      const imageContainer = document.getElementById('imageContainer');
 
       loadingState.classList.remove('hidden');
       resultBox.classList.add('hidden');
+      imageContainer.innerHTML = '';
 
-      let w = 1280, h = 720;
+      let w = 800, h = 600;
       if (aspectRatio.includes("9:16")) { 
-        w = 720; 
-        h = 1280; 
+        w = 600; 
+        h = 900; 
       } else if (aspectRatio.includes("1:1")) { 
-        w = 800; 
-        h = 800; 
-      } else {
-        w = 1280;
-        h = 720;
+        w = 700; 
+        h = 700; 
       }
 
-      // Using direct precise encoding with explicit enhancement tags for clear subject rendering
-      const precisePrompt = `Close up cinematic portrait of ${prompt}, high quality photography`;
-      const encodedPrompt = encodeURIComponent(precisePrompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&enhance=true`;
+      // Generate 2 distinct images based on exact user prompt with unique random seeds
+      const encodedPrompt = encodeURIComponent(prompt);
+      const seed1 = Math.floor(Math.random() * 50000);
+      const seed2 = seed1 + 1234;
+
+      const imgUrl1 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed1}`;
+      const imgUrl2 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed2}`;
 
       setTimeout(() => {
-        videoVisual.src = imageUrl;
+        imageContainer.innerHTML = `
+          <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
+            <img src="${imgUrl1}" class="w-full h-auto object-contain rounded-xl" alt="AI Variation 1" />
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold">#1 HD</div>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
+            <img src="${imgUrl2}" class="w-full h-auto object-contain rounded-xl" alt="AI Variation 2" />
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold">#2 HD</div>
+          </div>
+        `;
+
         loadingState.classList.add('hidden');
         resultBox.classList.remove('hidden');
-      }, 700);
+      }, 800);
     }
   </script>
 </body>
