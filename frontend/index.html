@@ -24,7 +24,7 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.6</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.7</span>
       </div>
     </div>
     
@@ -39,12 +39,12 @@
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Direct Multi-Image Engine
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Pro Studio Engine
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Enter any subject, person, or object to generate distinct visuals</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Type any person, place or item to generate matching HD visuals</p>
     </div>
 
     <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
@@ -52,15 +52,15 @@
         <i class="fa-solid fa-sliders text-indigo-400"></i> Select Dimension Ratio
       </label>
       <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-semibold cursor-pointer">
-        <option value="16:9">🖼️ 16:9 Landscape (Desktop / Cinematic)</option>
-        <option value="9:16">📱 9:16 Portrait (Instagram Reels / Shorts)</option>
+        <option value="16:9">🖼️ 16:9 Landscape (Cinematic Desktop)</option>
+        <option value="9:16">📱 9:16 Portrait (Reels / Shorts)</option>
         <option value="1:1">⬛ 1:1 Square (Instagram Post)</option>
       </select>
     </div>
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Red sports car on highway, Salman Khan in action movie)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Luxury sports car, Salman Khan, Cyberpunk city)..."></textarea>
         
         <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
@@ -68,13 +68,13 @@
       </div>
 
       <button id="genBtn" onclick="generateVisual()" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 font-extrabold py-4 rounded-2xl transition shadow-xl shadow-indigo-950/50 text-xs sm:text-sm flex items-center justify-center gap-2.5 uppercase tracking-wider ring-1 ring-white/20 active:scale-[0.99]">
-        <i class="fa-solid fa-bolt-lightning text-amber-300 text-sm"></i> Generate Premium Images
+        <i class="fa-solid fa-bolt-lightning text-amber-300 text-sm"></i> Generate Pro Images
       </button>
     </div>
 
     <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
       <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Multiple Variations... ⏳</p>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Rendering Studio Quality Frames... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
@@ -99,7 +99,7 @@
       const val = promptInput.value.trim();
       if (!val) return alert('Pehle prompt box me kuch likhiye!');
       
-      promptInput.value = `${val}, high quality realistic render, detailed lighting, sharp focus`;
+      promptInput.value = `${val}, highly detailed professional studio photography, cinematic lighting, 8k resolution`;
     }
 
     function generateVisual() {
@@ -129,10 +129,9 @@
         h = 700; 
       }
 
-      // Generate 2 distinct images based on exact user prompt with unique random seeds
       const encodedPrompt = encodeURIComponent(prompt);
-      const seed1 = Math.floor(Math.random() * 50000);
-      const seed2 = seed1 + 1234;
+      const seed1 = Math.floor(Math.random() * 80000);
+      const seed2 = seed1 + 567;
 
       const imgUrl1 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed1}`;
       const imgUrl2 = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${seed2}`;
@@ -140,18 +139,18 @@
       setTimeout(() => {
         imageContainer.innerHTML = `
           <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
-            <img src="${imgUrl1}" class="w-full h-auto object-contain rounded-xl" alt="AI Variation 1" />
-            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold">#1 HD</div>
+            <img src="${imgUrl1}" class="w-full h-auto object-contain rounded-xl" alt="Studio Variation 1" />
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#1 Pro</div>
           </div>
           <div class="relative rounded-2xl overflow-hidden border border-indigo-500/30 shadow-xl bg-black flex justify-center items-center p-1">
-            <img src="${imgUrl2}" class="w-full h-auto object-contain rounded-xl" alt="AI Variation 2" />
-            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold">#2 HD</div>
+            <img src="${imgUrl2}" class="w-full h-auto object-contain rounded-xl" alt="Studio Variation 2" />
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] text-indigo-300 font-semibold shadow">#2 Pro</div>
           </div>
         `;
 
         loadingState.classList.add('hidden');
         resultBox.classList.remove('hidden');
-      }, 800);
+      }, 700);
     }
   </script>
 </body>
