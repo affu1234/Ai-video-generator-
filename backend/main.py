@@ -6,7 +6,6 @@ import os
 
 app = FastAPI()
 
-# CORS Middleware for Frontend-Backend Communication
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,12 +17,11 @@ app.add_middleware(
 api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
 
-# Real-time Stats Counter
 stats_counter = {
-    "total_generations": 142,
-    "images_generated": 118,
-    "voices_generated": 95,
-    "prompts_enhanced": 64
+    "total_generations": 150,
+    "images_generated": 125,
+    "voices_generated": 100,
+    "prompts_enhanced": 70
 }
 
 BG_MUSIC_TRACKS = {
@@ -48,22 +46,23 @@ def get_stats():
 
 @app.get("/enhance-prompt")
 def enhance_prompt(prompt: str = ""):
-    if not prompt:
-        return {"enhanced_prompt": prompt}
+    if not prompt or prompt.strip() == "":
+        return {"enhanced_prompt": "Cinematic high detail studio scene"}
     
-    enhanced = f"A high quality cinematic shot of {prompt}, 8k resolution, photorealistic, octane render, vivid lighting, sharp focus"
+    enhanced = f"A realistic cinematic detailed shot of {prompt}, 8k resolution, photorealistic, dramatic lighting, sharp focus"
+    
     if client:
         try:
-            ai_prompt = f"Expand this into an ultra-detailed 8K prompt in 1 concise line: '{prompt}'."
+            ai_prompt = f"Expand this into an ultra-detailed 8K video prompt in 1 line: '{prompt}'."
             res = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=ai_prompt,
             )
-            if res.text:
-                enhanced = res.text.strip()
-        except Exception:
+            if res and res.text:
+                enhanced = res.text.strip().replace('\n', ' ')
+        except Exception as e:
             pass
-    
+            
     stats_counter["prompts_enhanced"] += 1
     return {"enhanced_prompt": enhanced}
 
@@ -77,47 +76,53 @@ async def generate_script(
     aspect_ratio: str = Form("16:9"),
     user_file: UploadFile = File(None)
 ):
-    is_img = include_image.lower() == "true"
-    is_voc = include_voice.lower() == "true"
-    is_mus = include_music.lower() == "true"
+    is_img = str(include_image).lower() == "true"
+    is_voc = str(include_voice).lower() == "true"
+    is_mus = str(include_music).lower() == "true"
 
     stats_counter["total_generations"] += 1
     if is_img: stats_counter["images_generated"] += 1
     if is_voc: stats_counter["voices_generated"] += 1
 
+    # Image Size Handling
     w, h = 1280, 720
     if aspect_ratio == "9:16":
         w, h = 720, 1280
     elif aspect_ratio == "1:1":
         w, h = 800, 800
 
-    clean_prompt = urllib.parse.quote(prompt.strip() if prompt else "cinematic visual")
+    clean_prompt = urllib.parse.quote(prompt.strip() if prompt else "cinematic wallpaper")
     
+    # Visual Image Engine
     image_url = None
-    fallback_image = None
+    fallback_image = f"https://picsum.photos/{w}/{h}?random=1"
+    
     if is_img:
-        image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&seed=42&nologo=true"
-        fallback_image = f"https://picsum.photos/{w}/{h}?random=1"
+        # Reliable Pollinations Direct Engine URL
+        image_url = f"https://image.pollinations.ai/prompt/{clean_prompt}?width={w}&height={h}&nologo=true"
 
-    script_text = f"Welcome to the story of {prompt if prompt else 'this scene'}. Discover the future with AI."
+    # Script Logic
+    script_text = f"Welcome to the visual world of {prompt if prompt else 'AI Studio'}. Experience the future of content creation."
     if client and prompt:
         try:
-            ai_prompt = f"Write a compelling 2-sentence voiceover script about: '{prompt}'."
+            ai_prompt = f"Write a catchy 2-sentence narration script about: '{prompt}'."
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=ai_prompt,
             )
-            if response.text:
-                script_text = response.text.replace('\n', ' ')
+            if response and response.text:
+                script_text = response.text.strip().replace('\n', ' ')
         except Exception:
             pass
 
+    # Voice Engine
     voice_url = None
     if is_voc:
         lang = voice_accent.split('-')[0]
         encoded_script = urllib.parse.quote(script_text[:150])
         voice_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={encoded_script}&tl={lang}&client=tw-ob"
 
+    # Music Engine
     bg_music = None
     if is_mus:
         p_lower = prompt.lower()
