@@ -3,91 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Studio Pro & Creator Suite</title>
+  <title>StudioAI - Pro Video Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between items-center p-3 sm:p-6 font-sans selection:bg-purple-500 selection:text-white">
 
-  <header class="w-full max-w-2xl flex items-center justify-between pb-4 border-b border-slate-800">
-    <div class="flex items-center gap-2">
-      <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-400 flex items-center justify-center text-white font-black shadow-lg">
-        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+  <header class="w-full max-w-xl flex items-center justify-between pb-4 border-b border-slate-800/80">
+    <div class="flex items-center gap-2.5">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-purple-500/20 ring-1 ring-white/20">
+        <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
       </div>
-      <span class="font-bold text-lg text-slate-100 tracking-wide">Studio<span class="text-purple-400">AI</span></span>
+      <div>
+        <span class="font-black text-xl text-white tracking-tight">Studio<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">AI</span></span>
+        <span class="block text-[9px] font-bold text-slate-500 -mt-1 tracking-widest uppercase">Ultra HD Suite</span>
+      </div>
     </div>
     
     <div class="flex items-center gap-2">
-      <button onclick="fetchStats()" class="text-xs bg-slate-900 border border-slate-800 hover:border-purple-500/50 text-slate-300 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 font-medium">
-        <i class="fa-solid fa-chart-line text-purple-400"></i> Stats 📊
+      <button onclick="fetchStats()" class="text-xs bg-slate-900 border border-slate-800 hover:border-purple-500/50 text-slate-300 px-3.5 py-1.5 rounded-xl transition flex items-center gap-2 font-semibold shadow-inner">
+        <i class="fa-solid fa-chart-line text-purple-400"></i> Analytics
       </button>
-      <span class="text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30 px-3 py-1.5 rounded-full uppercase tracking-widest">
+      <span class="text-[10px] font-black bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
         PRO v4.0
       </span>
     </div>
   </header>
 
-  <main class="w-full max-w-2xl bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-2xl my-auto mt-4">
+  <main class="w-full max-w-xl bg-slate-900/80 border border-slate-800/80 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-2xl my-auto mt-4 ring-1 ring-white/5">
     
-    <div class="text-center mb-5">
-      <h1 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-        AI Video Creator Studio 🎬
+    <div class="text-center mb-6">
+      <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 drop-shadow-sm">
+        AI Video Creator Studio
       </h1>
-      <p class="text-slate-400 text-xs mt-1">Professional Multi-Scene Video, Magic Prompts & HD Visual Generator!</p>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Generate cinematic visuals, custom narration & soundtrack instantly</p>
     </div>
 
-    <div id="statsModal" class="hidden mb-4 bg-slate-950 p-4 rounded-2xl border border-purple-500/30 relative">
-      <button onclick="document.getElementById('statsModal').classList.add('hidden')" class="absolute top-2 right-3 text-slate-500 hover:text-white text-xs">✕</button>
-      <p class="text-xs font-bold text-purple-400 mb-2 uppercase tracking-wider"><i class="fa-solid fa-chart-pie"></i> Platform Usage Statistics</p>
+    <div id="statsModal" class="hidden mb-5 bg-slate-950/90 p-4 rounded-2xl border border-purple-500/40 relative shadow-2xl backdrop-blur-md">
+      <button onclick="document.getElementById('statsModal').classList.add('hidden')" class="absolute top-2.5 right-3 text-slate-500 hover:text-white text-xs">✕</button>
+      <p class="text-[11px] font-bold text-purple-400 mb-3 uppercase tracking-wider flex items-center gap-2">
+        <i class="fa-solid fa-chart-pie"></i> Realtime Platform Usage
+      </p>
       <div class="grid grid-cols-4 gap-2 text-center text-xs">
-        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
-          <p id="statTotal" class="text-base font-bold text-amber-400">0</p>
-          <span class="text-[9px] text-slate-500">Generations</span>
+        <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+          <p id="statTotal" class="text-base font-black text-amber-400">0</p>
+          <span class="text-[9px] font-semibold text-slate-400">Generations</span>
         </div>
-        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
-          <p id="statImages" class="text-base font-bold text-purple-400">0</p>
-          <span class="text-[9px] text-slate-500">HD Visuals</span>
+        <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+          <p id="statImages" class="text-base font-black text-purple-400">0</p>
+          <span class="text-[9px] font-semibold text-slate-400">HD Visuals</span>
         </div>
-        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
-          <p id="statVoices" class="text-base font-bold text-pink-400">0</p>
-          <span class="text-[9px] text-slate-500">Voiceovers</span>
+        <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+          <p id="statVoices" class="text-base font-black text-pink-400">0</p>
+          <span class="text-[9px] font-semibold text-slate-400">Voiceovers</span>
         </div>
-        <div class="bg-slate-900 p-2 rounded-xl border border-slate-800">
-          <p id="statPrompts" class="text-base font-bold text-emerald-400">0</p>
-          <span class="text-[9px] text-slate-500">Magic Prompts</span>
+        <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+          <p id="statPrompts" class="text-base font-black text-emerald-400">0</p>
+          <span class="text-[9px] font-semibold text-slate-400">Magic Prompts</span>
         </div>
       </div>
     </div>
 
-    <div class="mb-4 bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
-      <p class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-wider">Features Selection:</p>
-      <div class="grid grid-cols-3 gap-2 text-xs mb-3">
-        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
-          <input type="checkbox" id="chkImage" checked class="accent-purple-500">
-          <span>🖼️ Visual</span>
+    <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80">
+      <p class="text-[10px] font-bold text-slate-400 mb-2.5 uppercase tracking-wider">Features Selection:</p>
+      <div class="grid grid-cols-3 gap-2.5 text-xs mb-3.5">
+        <label class="flex items-center gap-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800/90 cursor-pointer hover:border-purple-500/50 transition">
+          <input type="checkbox" id="chkImage" checked class="accent-purple-500 rounded">
+          <span class="flex items-center gap-1.5 font-medium text-slate-200"><i class="fa-regular fa-image text-purple-400"></i> Visual</span>
         </label>
-        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
-          <input type="checkbox" id="chkVoice" class="accent-purple-500">
-          <span>🎙️ Voice</span>
+        <label class="flex items-center gap-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800/90 cursor-pointer hover:border-purple-500/50 transition">
+          <input type="checkbox" id="chkVoice" checked class="accent-purple-500 rounded">
+          <span class="flex items-center gap-1.5 font-medium text-slate-200"><i class="fa-solid fa-microphone text-pink-400"></i> Voice</span>
         </label>
-        <label class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-800 cursor-pointer hover:border-purple-500/50">
-          <input type="checkbox" id="chkMusic" class="accent-purple-500">
-          <span>🎵 Music</span>
+        <label class="flex items-center gap-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800/90 cursor-pointer hover:border-purple-500/50 transition">
+          <input type="checkbox" id="chkMusic" class="accent-purple-500 rounded">
+          <span class="flex items-center gap-1.5 font-medium text-slate-200"><i class="fa-solid fa-music text-amber-400"></i> Music</span>
         </label>
       </div>
 
-      <div class="grid grid-cols-2 gap-2">
+      <div class="grid grid-cols-2 gap-2.5">
         <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Aspect Ratio</label>
-          <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none">
-            <option value="16:9">16:9 (YouTube / Landscape)</option>
-            <option value="9:16">9:16 (Reels / Shorts / TikTok)</option>
-            <option value="1:1">1:1 (Square Post)</option>
+          <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Aspect Ratio</label>
+          <select id="aspectRatio" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none focus:border-purple-500/50 font-medium">
+            <option value="16:9">16:9 (Landscape)</option>
+            <option value="9:16">9:16 (Reels / Shorts)</option>
+            <option value="1:1">1:1 (Square)</option>
           </select>
         </div>
         <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Voice Accent</label>
-          <select id="voiceAccent" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none">
+          <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Voice Accent</label>
+          <select id="voiceAccent" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-slate-300 focus:outline-none focus:border-purple-500/50 font-medium">
             <option value="en-US">English (US Accent)</option>
             <option value="hi-IN">Hindi Accent</option>
             <option value="en-UK">English (UK Accent)</option>
@@ -98,62 +103,68 @@
 
     <div class="space-y-3 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3.5 pr-24 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/80 transition resize-none placeholder-slate-600" placeholder="Enter prompt or scene idea..."></textarea>
+        <textarea id="promptInput" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3.5 pr-28 text-xs text-white focus:outline-none focus:ring-2 focus:ring-purple-500/60 transition resize-none placeholder-slate-600 font-normal" placeholder="Describe your scene or enter prompt idea..."></textarea>
         
-        <button onclick="enhancePrompt()" class="absolute right-2.5 top-2.5 bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/40 text-purple-300 text-[10px] font-bold px-2.5 py-1.5 rounded-xl transition flex items-center gap-1">
-          <i class="fa-solid fa-wand-magic"></i> Magic 🪄
+        <button onclick="enhancePrompt()" class="absolute right-2.5 top-2.5 bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/50 hover:to-pink-600/50 border border-purple-500/40 text-purple-200 text-[10px] font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs text-amber-300"></i> Magic
         </button>
       </div>
 
-      <div class="relative bg-slate-950 border border-dashed border-slate-800 hover:border-purple-500/60 rounded-2xl p-3 text-center transition">
+      <div class="relative bg-slate-950 border border-dashed border-slate-800 hover:border-purple-500/60 rounded-2xl p-3 text-center transition group">
         <input type="file" id="fileInput" accept="image/*,video/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="showFileName(this)">
-        <div class="flex items-center justify-center gap-2 text-slate-400 text-xs">
+        <div class="flex items-center justify-center gap-2 text-slate-400 text-xs font-medium group-hover:text-purple-300">
           <i class="fa-solid fa-paperclip text-purple-400"></i>
           <span id="fileNameDisplay">Attach Reference Image / Video (Optional)</span>
         </div>
       </div>
 
-      <button id="genBtn" onclick="generateVideo()" class="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 font-extrabold py-3.5 rounded-2xl transition shadow-xl text-xs sm:text-sm flex items-center justify-center gap-2">
-        <i class="fa-solid fa-bolt"></i> Generate Studio Media
+      <button id="genBtn" onclick="generateVideo()" class="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 font-extrabold py-3.5 rounded-2xl transition shadow-xl shadow-purple-950/40 text-xs sm:text-sm flex items-center justify-center gap-2 uppercase tracking-wide">
+        <i class="fa-solid fa-bolt text-amber-200"></i> Generate Studio Media
       </button>
     </div>
 
     <div id="loadingState" class="hidden py-8 text-center bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-4">
       <div class="inline-block w-8 h-8 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mb-2"></div>
-      <p class="text-xs text-purple-300 font-semibold animate-pulse">Synthesizing Media, Storyboard & Script... ⏳</p>
+      <p class="text-xs text-purple-300 font-semibold animate-pulse">Generating selected content... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
-      
       <div id="visualFrame" class="hidden relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl">
         <img id="videoVisual" class="w-full h-full object-cover" alt="Visual Frame" />
       </div>
 
-      <div id="voiceBox" class="hidden bg-slate-950 p-3 rounded-2xl border border-slate-800">
-        <p class="text-[11px] font-semibold text-purple-400 mb-1">🎙️ AI Voiceover Audio</p>
+      <div id="voiceBox" class="hidden bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+        <p class="text-[11px] font-bold text-purple-400 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-play"></i> AI Voiceover Narration
+        </p>
         <audio id="voiceAudio" controls class="w-full h-8 rounded-lg"></audio>
       </div>
 
-      <div id="musicBox" class="hidden bg-slate-950 p-3 rounded-2xl border border-slate-800">
-        <p class="text-[11px] font-semibold text-pink-400 mb-1">🎵 Ambient Track</p>
+      <div id="musicBox" class="hidden bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+        <p class="text-[11px] font-bold text-pink-400 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-compact-disc"></i> Ambient Soundtrack
+        </p>
         <audio id="bgMusicAudio" controls loop class="w-full h-8 rounded-lg"></audio>
       </div>
 
-      <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">AI Storyboard & Script</span>
-          <button onclick="copyScriptText()" class="text-[10px] text-purple-400 font-semibold bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">Copy 📋</button>
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-file-lines text-purple-400"></i> AI Script Text
+          </span>
+          <button onclick="copyScriptText()" class="text-[10px] text-purple-300 font-bold bg-purple-500/10 hover:bg-purple-500/20 px-2.5 py-1 rounded-lg border border-purple-500/20 transition flex items-center gap-1">
+            <i class="fa-regular fa-copy"></i> Copy
+          </button>
         </div>
         <p id="scriptOutput" class="text-xs font-mono text-slate-300 leading-relaxed"></p>
       </div>
-
     </div>
 
   </main>
 
   <footer class="mt-6 text-center text-xs text-slate-500 pb-2">
     <span>Crafted by </span>
-    <a href="https://www.instagram.com/digitalaffan.1?igsh=MWwzNWZoamYxdGVkdw==" target="_blank" class="text-purple-400 hover:text-pink-400 font-bold underline">
+    <a href="https://www.instagram.com/digitalaffan.1?igsh=MWwzNWZoamYxdGVkdw==" target="_blank" class="text-purple-400 hover:text-pink-400 font-bold underline transition">
       @digitalaffan.1
     </a>
   </footer>
@@ -164,7 +175,7 @@
     function showFileName(input) {
       const display = document.getElementById('fileNameDisplay');
       if (input.files && input.files[0]) {
-        display.innerText = "📎 " + input.files[0].name;
+        display.innerText = "Attached: " + input.files[0].name;
       } else {
         display.innerText = "Attach Reference Image / Video (Optional)";
       }
@@ -173,7 +184,7 @@
     function copyScriptText() {
       if (currentScript) {
         navigator.clipboard.writeText(currentScript);
-        alert('Script copied! 📋');
+        alert('Script copied to clipboard!');
       }
     }
 
@@ -183,19 +194,21 @@
       try {
         const res = await fetch('https://ai-video-generator-aian.onrender.com/get-stats');
         const data = await res.json();
-        document.getElementById('statTotal').innerText = data.total_generations;
-        document.getElementById('statImages').innerText = data.images_generated;
-        document.getElementById('statVoices').innerText = data.voices_generated;
-        document.getElementById('statPrompts').innerText = data.prompts_enhanced;
-      } catch(e) {}
+        document.getElementById('statTotal').innerText = data.total ?? 0;
+        document.getElementById('statImages').innerText = data.images ?? 0;
+        document.getElementById('statVoices').innerText = data.voices ?? 0;
+        document.getElementById('statPrompts').innerText = data.prompts ?? 0;
+      } catch(e) {
+        console.error(e);
+      }
     }
 
     async function enhancePrompt() {
       const promptInput = document.getElementById('promptInput');
       const val = promptInput.value.trim();
-      if (!val) return alert('Pehle basic prompt likho!');
+      if (!val) return alert('Pehle prompt topic likhein!');
 
-      promptInput.value = "Magic Prompt Processing... ✨";
+      promptInput.value = "Magic Prompt Enhancing... ✨";
       try {
         const res = await fetch(`https://ai-video-generator-aian.onrender.com/enhance-prompt?prompt=${encodeURIComponent(val)}`);
         const data = await res.json();
@@ -210,7 +223,7 @@
       const fileInput = document.getElementById('fileInput');
 
       if (!prompt && (!fileInput.files || fileInput.files.length === 0)) {
-        return alert('Pehle koi prompt likho ya ek file attach karo!');
+        return alert('Pehle text prompt likhein ya file attach karein!');
       }
 
       const chkImage = document.getElementById('chkImage').checked;
@@ -230,9 +243,9 @@
 
       const formData = new FormData();
       formData.append('prompt', prompt);
-      formData.append('include_image', chkImage);
-      formData.append('include_voice', chkVoice);
-      formData.append('include_music', chkMusic);
+      formData.append('include_image', chkImage ? "true" : "false");
+      formData.append('include_voice', chkVoice ? "true" : "false");
+      formData.append('include_music', chkMusic ? "true" : "false");
       formData.append('aspect_ratio', aspectRatio);
       formData.append('voice_accent', voiceAccent);
 
@@ -277,7 +290,7 @@
         resultBox.classList.remove('hidden');
 
       } catch (err) {
-        alert('Error connecting to Backend Server!');
+        alert('Server connection error!');
         loadingState.classList.add('hidden');
       }
     }
