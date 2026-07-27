@@ -24,15 +24,12 @@
         <span class="font-black text-xl text-white tracking-tight flex items-center gap-1">
           Lumina<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">AI</span>
         </span>
-        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.2</span>
+        <span class="block text-[9px] font-bold text-slate-400 -mt-0.5 tracking-widest uppercase">Elite Studio v5.3</span>
       </div>
     </div>
     
     <div class="flex items-center gap-2">
-      <button onclick="fetchStats()" class="text-xs bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 px-3.5 py-2 rounded-xl transition flex items-center gap-2 font-semibold shadow-inner backdrop-blur-md">
-        <i class="fa-solid fa-chart-pie text-indigo-400"></i> Stats
-      </button>
-      <div class="hidden sm:flex items-center gap-1.5 text-[10px] font-black bg-gradient-to-r from-amber-500/10 to-yellow-500/10 text-amber-300 border border-amber-500/30 px-3 py-2 rounded-full uppercase tracking-wider shadow-sm">
+      <div class="flex items-center gap-1.5 text-[10px] font-black bg-gradient-to-r from-amber-500/10 to-yellow-500/10 text-amber-300 border border-amber-500/30 px-3 py-2 rounded-full uppercase tracking-wider shadow-sm">
         <i class="fa-solid fa-gem text-[9px]"></i> VIP Active
       </div>
     </div>
@@ -42,33 +39,12 @@
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Prompt Matching Engine
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Direct AI Prompt Engine
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
         Create Elite Visuals Instantly
       </h1>
-      <p class="text-slate-400 text-xs mt-1.5 font-medium">Type any prompt and get exact AI generated pictures</p>
-    </div>
-
-    <div id="statsModal" class="hidden mb-5 bg-slate-950/95 p-4 rounded-2xl border border-indigo-500/40 relative shadow-2xl backdrop-blur-xl">
-      <button onclick="document.getElementById('statsModal').classList.add('hidden')" class="absolute top-2.5 right-3 text-slate-400 hover:text-white text-xs p-1">✕</button>
-      <p class="text-[11px] font-bold text-indigo-400 mb-3 uppercase tracking-wider flex items-center gap-2">
-        <i class="fa-solid fa-chart-line"></i> Global Network Status
-      </p>
-      <div class="grid grid-cols-3 gap-2.5 text-center text-xs">
-        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800/80 shadow-sm">
-          <p id="statTotal" class="text-base font-black text-amber-400">0</p>
-          <span class="text-[9px] font-semibold text-slate-400 uppercase tracking-tight">Total Renders</span>
-        </div>
-        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800/80 shadow-sm">
-          <p id="statImages" class="text-base font-black text-indigo-400">0</p>
-          <span class="text-[9px] font-semibold text-slate-400 uppercase tracking-tight">HD Visuals</span>
-        </div>
-        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800/80 shadow-sm">
-          <p id="statPrompts" class="text-base font-black text-pink-400">0</p>
-          <span class="text-[9px] font-semibold text-slate-400 uppercase tracking-tight">AI Enhances</span>
-        </div>
-      </div>
+      <p class="text-slate-400 text-xs mt-1.5 font-medium">Type any name, character or scene to generate exact image</p>
     </div>
 
     <div class="mb-5 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800/80 shadow-inner">
@@ -84,9 +60,9 @@
 
     <div class="space-y-3.5 mb-5">
       <div class="relative">
-        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Salman Khan in action style)..."></textarea>
+        <textarea id="promptInput" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 pr-32 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/60 transition resize-none placeholder-slate-500 font-normal shadow-inner leading-relaxed" placeholder="Type prompt (e.g. Salman Khan, futuristic sports car, cyberpunk city)..."></textarea>
         
-        <button onclick="enhancePrompt()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
+        <button onclick="enhancePromptLocally()" class="absolute right-3 top-3 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 hover:from-indigo-600/60 hover:to-purple-600/60 border border-indigo-500/50 text-indigo-200 text-[10px] font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-md">
           <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-xs"></i> AI Enhance
         </button>
       </div>
@@ -98,7 +74,7 @@
 
     <div id="loadingState" class="hidden py-10 text-center bg-slate-950/80 rounded-2xl border border-slate-800/80 mb-4 shadow-inner">
       <div class="inline-block w-9 h-9 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-3"></div>
-      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Painting AI Image from your Prompt... ⏳</p>
+      <p class="text-xs text-indigo-300 font-bold tracking-wide animate-pulse">Painting your exact image from prompt... ⏳</p>
     </div>
 
     <div id="resultBox" class="hidden space-y-4">
@@ -122,36 +98,15 @@
   </footer>
 
   <script>
-    const BACKEND_URL = "https://ai-video-generator-aian.onrender.com";
-
-    async function fetchStats() {
-      const modal = document.getElementById('statsModal');
-      modal.classList.remove('hidden');
-      try {
-        const res = await fetch(`${BACKEND_URL}/get-stats`);
-        const data = await res.json();
-        document.getElementById('statTotal').innerText = data.total ?? 610;
-        document.getElementById('statImages').innerText = data.images ?? 580;
-        document.getElementById('statPrompts').innerText = data.prompts ?? 390;
-      } catch(e) {}
-    }
-
-    async function enhancePrompt() {
+    function enhancePromptLocally() {
       const promptInput = document.getElementById('promptInput');
       const val = promptInput.value.trim();
       if (!val) return alert('Pehle prompt box me kuch likhiye!');
-
-      promptInput.value = "Enhancing with AI Magic... ✨";
-      try {
-        const res = await fetch(`${BACKEND_URL}/enhance-prompt?prompt=${encodeURIComponent(val)}`);
-        const data = await res.json();
-        promptInput.value = (data && data.enhanced_prompt) ? data.enhanced_prompt : val;
-      } catch(e) {
-        promptInput.value = val;
-      }
+      
+      promptInput.value = `Cinematic portrait masterpiece of ${val}, hyperdetailed 8k resolution, dramatic studio lighting, photorealistic`;
     }
 
-    async function generateVisual() {
+    function generateVisual() {
       const promptInput = document.getElementById('promptInput');
       const prompt = promptInput.value.trim();
       const aspectRatio = document.getElementById('aspectRatio').value;
@@ -167,22 +122,21 @@
       loadingState.classList.remove('hidden');
       resultBox.classList.add('hidden');
 
-      try {
-        const res = await fetch(`${BACKEND_URL}/generate-visual?prompt=${encodeURIComponent(prompt)}&aspect_ratio=${aspectRatio}`);
-        const data = await res.json();
+      // Dimensions mapping
+      let w = 1280, h = 720;
+      if (aspectRatio === "9:16") { w = 720; h = 1280; }
+      else if (aspectRatio === "1:1") { w = 800; h = 800; }
 
-        videoVisual.src = data.image_url;
-        videoVisual.onerror = function() {
-          this.src = data.fallback_image;
-        };
+      // Direct Image URL Generation matching user prompt 100%
+      const encodedPrompt = encodeURIComponent(prompt);
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*1000)}`;
 
+      // Simulate loading delay for smooth loader animation
+      setTimeout(() => {
+        videoVisual.src = imageUrl;
         loadingState.classList.add('hidden');
         resultBox.classList.remove('hidden');
-
-      } catch (err) {
-        alert('Server wake up ho raha hai! 10 second baad dobara Generate button dabayein.');
-        loadingState.classList.add('hidden');
-      }
+      }, 800);
     }
   </script>
 </body>
